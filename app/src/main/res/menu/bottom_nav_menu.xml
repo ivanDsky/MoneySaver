@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/miHome"
+        android:icon="@drawable/ic_list"
+        android:title="Home" />
+    <item
+        android:id="@+id/miGraph"
+        android:icon="@drawable/ic_timeline"
+        android:title="Graph" />
+    <item
+        android:id="@+id/miSettings"
+        android:icon="@drawable/ic_settings"
+        android:title="Settings" />
+</menu>
