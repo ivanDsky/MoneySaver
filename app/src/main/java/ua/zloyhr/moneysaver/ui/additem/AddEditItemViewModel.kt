@@ -24,16 +24,14 @@ class AddEditItemViewModel @Inject constructor(
 ) :
     ViewModel() {
 
-    var task:ChargeItem? = state.get<ChargeItem>("item")
+    var task: ChargeItem? = state.get<ChargeItem>("item")
 
     fun onSendClick(name: String, value: String, date: String) {
-        val item = ChargeItem(
-            name,
-            value.toDouble(),
-            SimpleDateFormat.getDateInstance().parse(date).time
-        )
+        task = task?.copy(name,value.toDouble(),SimpleDateFormat.getDateInstance().parse(date).time)
+            ?: ChargeItem(name,value.toDouble(),SimpleDateFormat.getDateInstance().parse(date).time)
+
         viewModelScope.launch {
-            repository.chargeDao.insert(item)
+            repository.chargeDao.insert(task!!)
         }
     }
 }

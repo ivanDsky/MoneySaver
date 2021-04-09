@@ -7,12 +7,9 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.navArgs
 import dagger.hilt.android.AndroidEntryPoint
 import ua.zloyhr.moneysaver.R
-import ua.zloyhr.moneysaver.data.entities.ChargeItem
 import ua.zloyhr.moneysaver.databinding.FragmentAddItemBinding
 import java.text.SimpleDateFormat
 import java.util.*
