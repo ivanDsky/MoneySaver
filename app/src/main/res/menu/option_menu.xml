@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/miSearch"
+        android:icon="@drawable/ic_search"
+        android:title="Search"
+        app:showAsAction="always|collapseActionView"
+        app:actionViewClass="androidx.appcompat.widget.SearchView" />
+    <item
+        android:id="@+id/miSort"
+        android:icon="@drawable/ic_sort"
+        android:title="Sort"
+        app:showAsAction="always">
+
+        <menu>
+            <item
+                android:id="@+id/miSortByName"
+                android:title="Sort by name" />
+            <item
+                android:id="@+id/miSortByValue"
+                android:title="Sort by value" />
+            <item
+                android:id="@+id/miSortByDate"
+                android:title="Sort by date" />
+        </menu>
+
+    </item>
+    <item android:title="Show positive" />
+    <item android:title="Show negative"/>
+    <item android:title="Reset filters"/>
+</menu>

@@ -10,8 +10,17 @@ import ua.zloyhr.moneysaver.data.entities.ChargeItem
 import ua.zloyhr.moneysaver.databinding.ItemChargeBinding
 import java.text.DateFormat
 import java.util.*
+import androidx.lifecycle.ViewModel
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 
-class ChargeListAdapter(private val navController: NavController,private val items : List<ChargeItem>) : RecyclerView.Adapter<ChargeListAdapter.ChargeListViewHolder>(){
+import java.util.ArrayList
+
+
+
+
+class ChargeListAdapter(private val navController: NavController) :
+    ListAdapter<ChargeItem,ChargeListAdapter.ChargeListViewHolder>(DiffChargeItem()){
 
     class ChargeListViewHolder(val binding: ItemChargeBinding) : RecyclerView.ViewHolder(binding.root){
 
@@ -22,7 +31,7 @@ class ChargeListAdapter(private val navController: NavController,private val ite
     }
 
     override fun onBindViewHolder(holder: ChargeListViewHolder, position: Int) {
-        val chargeItem = items[position]
+        val chargeItem = getItem(position)
         holder.binding.apply {
 
             tvName.text = chargeItem.name
@@ -35,6 +44,11 @@ class ChargeListAdapter(private val navController: NavController,private val ite
         }
     }
 
-    override fun getItemCount(): Int = items.size
+    class DiffChargeItem : DiffUtil.ItemCallback<ChargeItem>(){
+        override fun areItemsTheSame(oldItem: ChargeItem, newItem: ChargeItem) = oldItem.id == newItem.id
+
+        override fun areContentsTheSame(oldItem: ChargeItem, newItem: ChargeItem) = oldItem.hashCode() == newItem.hashCode()
+
+    }
 
 }
