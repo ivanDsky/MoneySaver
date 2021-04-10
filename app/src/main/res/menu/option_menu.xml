@@ -27,7 +27,7 @@
         </menu>
 
     </item>
-    <item android:title="Show positive" />
-    <item android:title="Show negative"/>
-    <item android:title="Reset filters"/>
+    <item android:title="Show positive" android:id="@+id/miShowPositive"/>
+    <item android:title="Show negative" android:id="@+id/miShowNegative"/>
+    <item android:title="Reset filters" android:id="@+id/miResetFilters"/>
 </menu>
