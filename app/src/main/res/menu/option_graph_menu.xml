@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/miSampleDate"
+        android:icon="@drawable/ic_calendar"
+        android:title="Sample"
+        app:showAsAction="always">
+
+        <menu>
+            <item
+                android:id="@+id/miSampleDateDay"
+                android:title="Days" />
+            <item
+                android:id="@+id/miSampleDateWeek"
+                android:title="Weeks" />
+            <item
+                android:id="@+id/miSampleDateMonth"
+                android:title="Months" />
+            <item
+                android:id="@+id/miSampleDateYear"
+                android:title="Years" />
+        </menu>
+
+    </item>
+</menu>

@@ -80,6 +80,9 @@ dependencies {
 
     // DataStore
     implementation "androidx.datastore:datastore-preferences:1.0.0-alpha08"
+
+    // Charts
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 }
 
 kapt {

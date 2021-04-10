@@ -7,7 +7,7 @@
     <fragment
         android:id="@+id/miHome"
         android:name="ua.zloyhr.moneysaver.ui.home.HomeFragment"
-        android:label="fragment_home"
+        android:label="Home"
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_miHome_to_addEditItemFragment"
@@ -16,17 +16,12 @@
     <fragment
         android:id="@+id/miGraph"
         android:name="ua.zloyhr.moneysaver.ui.graph.GraphFragment"
-        android:label="fragment_graph"
+        android:label="Graph"
         tools:layout="@layout/fragment_graph" />
-    <fragment
-        android:id="@+id/miSettings"
-        android:name="ua.zloyhr.moneysaver.ui.settings.SettingsFragment"
-        android:label="fragment_settings"
-        tools:layout="@layout/fragment_settings" />
     <fragment
         android:id="@+id/addEditItemFragment"
         android:name="ua.zloyhr.moneysaver.ui.additem.AddEditItemFragment"
-        android:label="fragment_add_item"
+        android:label="Add item"
         tools:layout="@layout/fragment_add_item" >
         <action
             android:id="@+id/action_addEditItemFragment_to_miHome"
@@ -37,4 +32,8 @@
             app:nullable="true"
             android:defaultValue="@null" />
     </fragment>
+    <fragment
+        android:id="@+id/miSettings"
+        android:name="ua.zloyhr.moneysaver.ui.settings.SettingsFragment"
+        android:label="SettingsFragment" />
 </navigation>

@@ -99,4 +99,17 @@ class HomeViewModel @Inject constructor(
         queryStringFlow.value = ""
         showQueryFlow.value = ShowQuery.ALL
     }
+
+
+    fun onDeleteItem(item: ChargeItem){
+        viewModelScope.launch {
+            repository.chargeDao.delete(item)
+        }
+    }
+
+    fun onInsertItem(item: ChargeItem){
+        viewModelScope.launch {
+            repository.chargeDao.insert(item)
+        }
+    }
 }
