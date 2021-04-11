@@ -4,29 +4,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.graph.GraphFragment"
-    android:orientation="vertical">
+    android:orientation="horizontal"
+    tools:context=".ui.graph.GraphFragment">
 
     <com.github.mikephil.charting.charts.BarChart
         android:id="@+id/barChart"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
         android:layout_margin="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/rvTimeSampleList"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/rvTimeSampleList"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvTimeSampleList"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintHeight_max="200dp"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
         android:overScrollMode="never"
         android:padding="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/barChart"
+        app:layout_constraintTop_toTopOf="parent"
         tools:listitem="@layout/item_time_sample" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

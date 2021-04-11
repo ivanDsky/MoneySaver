@@ -150,9 +150,4 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         super.onDestroyView()
         searchView.setOnQueryTextListener(null)
     }
-
-    override fun onDetach() {
-        super.onDetach()
-        viewModel.onSavePreferences(sharedPreferences)
-    }
 }

@@ -13,6 +13,7 @@ import java.util.*
 import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
+import ua.zloyhr.moneysaver.util.doubleToMoney
 
 import java.util.ArrayList
 
@@ -36,7 +37,7 @@ class ChargeListAdapter(private val navController: NavController) :
 
             tvName.text = chargeItem.name
             tvDate.text = DateFormat.getDateInstance().format(chargeItem.timeCreated)
-            tvCharge.text = String.format(Locale.ROOT,"%.2f$",chargeItem.value)
+            tvCharge.text = doubleToMoney(chargeItem.value)
             root.setOnClickListener{
                 val action = HomeFragmentDirections.actionMiHomeToAddEditItemFragment(chargeItem)
                 navController.navigate(action)

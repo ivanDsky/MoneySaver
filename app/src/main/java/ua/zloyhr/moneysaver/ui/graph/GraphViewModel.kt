@@ -1,5 +1,6 @@
 package ua.zloyhr.moneysaver.ui.graph
 
+import android.content.SharedPreferences
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.mikephil.charting.data.BarEntry
@@ -61,6 +62,9 @@ class GraphViewModel @Inject constructor(private val repository: DatabaseReposit
             )
         }
 
+    fun getLabelOfEntries(samples: List<TimeSample>): List<String> =
+        samples.map { it.periodName }
+
     fun onSampleChange(timePeriod: TimePeriod) {
         timePeriodFlow.value = timePeriod
     }
@@ -77,4 +81,12 @@ class GraphViewModel @Inject constructor(private val repository: DatabaseReposit
         return calendar.timeInMillis
     }
 
+
+    fun onLoadPreferences(preferences: SharedPreferences){
+        timePeriodFlow.value = TimePeriod.valueOf(preferences.getString("timePeriod",null)?:"MONTH")
+    }
+
+    fun onSavePreferences(preferences: SharedPreferences){
+        preferences.edit().putString("timePeriod",timePeriodFlow.value.toString()).apply()
+    }
 }

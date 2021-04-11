@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import ua.zloyhr.moneysaver.data.TimeSample
 import ua.zloyhr.moneysaver.databinding.ItemChargeBinding
 import ua.zloyhr.moneysaver.databinding.ItemTimeSampleBinding
+import ua.zloyhr.moneysaver.util.doubleToMoney
 
 class TimeSampleListAdapter : ListAdapter<TimeSample, TimeSampleListAdapter.TimeSampleViewHolder>(DiffTimeSample) {
     class TimeSampleViewHolder(val binding: ItemTimeSampleBinding) :
@@ -19,7 +20,7 @@ class TimeSampleListAdapter : ListAdapter<TimeSample, TimeSampleListAdapter.Time
     override fun onBindViewHolder(holder: TimeSampleViewHolder, position: Int) {
         val timeSample = getItem(position)
         holder.binding.apply {
-            tvTimeSampleInfo.text = "${timeSample.value} in ${timeSample.periodName}"
+            tvTimeSampleInfo.text = "${doubleToMoney(timeSample.value)} in ${timeSample.periodName}"
         }
     }
 

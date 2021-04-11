@@ -38,7 +38,6 @@ class MainActivity : AppCompatActivity() {
                 supportActionBar?.setDisplayHomeAsUpEnabled(false)
                 bottomNavigationView?.visibility = View.VISIBLE
             }
-
         }
     }
 
