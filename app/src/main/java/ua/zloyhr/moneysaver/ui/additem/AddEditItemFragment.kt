@@ -3,14 +3,18 @@ package ua.zloyhr.moneysaver.ui.additem
 import android.app.DatePickerDialog
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import dagger.hilt.android.AndroidEntryPoint
 import ua.zloyhr.moneysaver.R
 import ua.zloyhr.moneysaver.databinding.FragmentAddItemBinding
+import ua.zloyhr.moneysaver.ui.MainActivity
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -25,32 +29,46 @@ class AddEditItemFragment : Fragment(R.layout.fragment_add_item) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val navArgs: AddEditItemFragmentArgs by navArgs()
+        (activity as MainActivity).supportActionBar?.title = navArgs.title
+
+        val isPositive: Boolean = if (viewModel.task != null) {
+            viewModel.task?.value!! >= 0
+        } else {
+            navArgs.title == "Add positive item"
+        }
+
         binding = FragmentAddItemBinding.bind(view)
         binding.apply {
-            if(viewModel.task != null) {
-                etName.setText(viewModel.task?.name)
-                etValue.setText(viewModel.task?.value.toString())
-                etDate.setText(
+            if (viewModel.task != null) {
+                etName.editText?.setText(viewModel.task?.name)
+                etValue.editText?.setText(viewModel.task?.value.toString())
+                etDate.editText?.setText(
                     SimpleDateFormat.getDateInstance().format(viewModel.task?.timeCreated)
                 )
             }
-            fabSaveItem.setOnClickListener {_ ->
+            fabSaveItem.setOnClickListener { _ ->
                 if (validateFields()) {
                     viewModel.onSendClick(
-                        etName.text.toString(),
-                        etValue.text.toString(),
-                        etDate.text.toString(),
+                        etName.editText?.text.toString(),
+                        etValue.editText?.text.toString(),
+                        etDate.editText?.text.toString(),
                     )
                     NavHostFragment.findNavController(this@AddEditItemFragment)
                         .navigate(R.id.action_addEditItemFragment_to_miHome)
                 }
             }
 
+            etValue.prefixText = if (isPositive) "+" else "-"
+            etValue.hint = if (isPositive) "+500.00$" else "-500.00$"
             etDate.hint = SimpleDateFormat.getDateInstance().format(calendar.timeInMillis)
 
-            val dialog = DatePickerDialog(requireContext(), { view, year, month, dayOfMonth ->
+            val dialog = DatePickerDialog(requireContext(), { _, year, month, dayOfMonth ->
                 calendar.set(year, month, dayOfMonth)
-                etDate.setText(SimpleDateFormat.getDateInstance().format(calendar.timeInMillis))
+                etDate.editText?.setText(
+                    SimpleDateFormat.getDateInstance().format(calendar.timeInMillis)
+                )
             }, currentYear, currentMonth, currentDayOfMonth)
 
             etDate.setOnClickListener {
@@ -66,7 +84,7 @@ class AddEditItemFragment : Fragment(R.layout.fragment_add_item) {
     private fun validateFields(): Boolean {
         var ret = true
         binding.apply {
-            if (etName.text.isBlank()) {
+            if (etName.editText?.text?.isBlank() != false) {
                 etName.error = "Name is blank";
                 ret = false
             } else {
@@ -74,14 +92,14 @@ class AddEditItemFragment : Fragment(R.layout.fragment_add_item) {
             }
 
             try {
-                etValue.text.toString().toDouble()
+                etValue.editText?.text.toString().toDouble()
                 etValue.error = null
             } catch (e: Exception) {
                 etValue.error = "Not a double";
                 ret = false
             }
 
-            if (etDate.text.isBlank()) {
+            if (etDate.editText?.text?.isBlank() != false) {
                 etDate.error = "Date is blank";
                 ret = false
             } else {

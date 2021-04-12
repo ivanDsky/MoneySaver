@@ -31,6 +31,9 @@
             app:argType="ua.zloyhr.moneysaver.data.entities.ChargeItem"
             app:nullable="true"
             android:defaultValue="@null" />
+        <argument
+            android:name="title"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/miSettings"

@@ -11,45 +11,62 @@
         android:layout_height="match_parent"
         android:padding="16dp">
 
-        <EditText
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/etName"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:ems="10"
-            android:hint="Ticket on Imagine Dragons"
-            android:inputType="textPersonName"
+            app:layout_constraintEnd_toEndOf="parent"
+
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_margin="8dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:ems="10"
+                android:inputType="textAutoCorrect"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Ticket on Imagine Dragons" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/etValue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:prefixText="+"
+            app:suffixText="$"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/etName"
+            android:layout_margin="8dp">
 
-        <EditText
-            android:id="@+id/etValue"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:ems="10"
-            android:hint="500"
-            android:inputType="numberDecimal|phone"
-            app:layout_constraintEnd_toEndOf="@+id/etName"
-            app:layout_constraintStart_toStartOf="@+id/etName"
-            app:layout_constraintTop_toBottomOf="@+id/etName" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="numberDecimal|phone"
+                android:digits="0123456789."
+                android:hint="+500.00$" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-
-        <EditText
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/etDate"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:ems="10"
-            android:focusable="false"
-            android:focusableInTouchMode="false"
-            android:hint="2021/1/4"
-            android:inputType="date"
-            app:layout_constraintEnd_toEndOf="@+id/etValue"
-            app:layout_constraintStart_toStartOf="@+id/etValue"
-            app:layout_constraintTop_toBottomOf="@+id/etValue" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/etValue"
+            android:layout_margin="8dp">
 
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="date"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:hint="24.02.2021" />
+        </com.google.android.material.textfield.TextInputLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -58,6 +75,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:src="@drawable/ic_done"
+        app:tint="?colorOnPrimary"
+        app:backgroundTint="?colorPrimary"
         android:layout_margin="16dp"/>
 
 

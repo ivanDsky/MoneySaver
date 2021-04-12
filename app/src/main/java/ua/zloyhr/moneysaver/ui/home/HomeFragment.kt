@@ -5,6 +5,8 @@ import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Bundle
 import android.view.*
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.Button
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.SearchView.OnQueryTextListener
@@ -12,6 +14,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -32,6 +35,13 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private lateinit var searchView: SearchView
     private lateinit var sharedPreferences: SharedPreferences
 
+    private val rotateOpen :Animation by lazy { AnimationUtils.loadAnimation(requireContext(),R.anim.rotate_open_anim) }
+    private val rotateClose :Animation by lazy { AnimationUtils.loadAnimation(requireContext(),R.anim.rotate_close_anim) }
+    private val fromBottom :Animation by lazy { AnimationUtils.loadAnimation(requireContext(),R.anim.from_bottom_anim) }
+    private val toBottom :Animation by lazy { AnimationUtils.loadAnimation(requireContext(),R.anim.to_bottom_anim) }
+
+    private var isFabExpanded = false
+
     @ExperimentalCoroutinesApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -49,9 +59,18 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         }
         binding.apply {
             rvChargeList.layoutManager = LinearLayoutManager(this@HomeFragment.context)
-            fabAddItem.setOnClickListener {
+            fabExpandAddItem.setOnClickListener {
+                onFabExpandedClick();
+            }
 
-                findNavController(this@HomeFragment).navigate(R.id.action_miHome_to_addEditItemFragment)
+            fabPosItem.setOnClickListener {
+                val action = HomeFragmentDirections.actionMiHomeToAddEditItemFragment(null,"Add positive item")
+                findNavController().navigate(action)
+            }
+
+            fabNegItem.setOnClickListener {
+                val action = HomeFragmentDirections.actionMiHomeToAddEditItemFragment(null,"Add negative item")
+                findNavController().navigate(action)
             }
         }
 
@@ -80,6 +99,36 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         helper.attachToRecyclerView(binding.rvChargeList)
 
         setHasOptionsMenu(true)
+    }
+
+    private fun onFabExpandedClick() {
+        isFabExpanded = binding.fabPosItem.visibility == View.VISIBLE
+        if(!isFabExpanded){
+            binding.apply {
+                fabPosItem.startAnimation(fromBottom)
+                fabNegItem.startAnimation(fromBottom)
+                fabExpandAddItem.startAnimation(rotateOpen)
+
+                fabPosItem.visibility = View.VISIBLE
+                fabNegItem.visibility = View.VISIBLE
+
+                fabPosItem.isClickable = true
+                fabNegItem.isClickable = true
+            }
+        }else{
+            binding.apply {
+                fabPosItem.startAnimation(toBottom)
+                fabNegItem.startAnimation(toBottom)
+                fabExpandAddItem.startAnimation(rotateClose)
+
+                fabPosItem.visibility = View.INVISIBLE
+                fabNegItem.visibility = View.INVISIBLE
+
+                fabPosItem.isClickable = false
+                fabNegItem.isClickable = false
+            }
+        }
+        isFabExpanded = !isFabExpanded
     }
 
 

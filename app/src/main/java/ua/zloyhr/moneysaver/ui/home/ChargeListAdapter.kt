@@ -39,7 +39,7 @@ class ChargeListAdapter(private val navController: NavController) :
             tvDate.text = DateFormat.getDateInstance().format(chargeItem.timeCreated)
             tvCharge.text = doubleToMoney(chargeItem.value)
             root.setOnClickListener{
-                val action = HomeFragmentDirections.actionMiHomeToAddEditItemFragment(chargeItem)
+                val action = HomeFragmentDirections.actionMiHomeToAddEditItemFragment(chargeItem,"Edit item")
                 navController.navigate(action)
             }
         }
