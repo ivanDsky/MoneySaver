@@ -25,10 +25,11 @@ class AddEditItemViewModel @Inject constructor(
     ViewModel() {
 
     var task: ChargeItem? = state.get<ChargeItem>("item")
+    private val locale = Locale.ENGLISH
 
     fun onSendClick(name: String, value: String, date: String) {
-        task = task?.copy(name,value.toDouble(),SimpleDateFormat.getDateInstance().parse(date).time)
-            ?: ChargeItem(name,value.toDouble(),SimpleDateFormat.getDateInstance().parse(date).time)
+        task = task?.copy(name,value.toDouble(),SimpleDateFormat.getDateInstance(DateFormat.LONG,locale).parse(date).time)
+            ?: ChargeItem(name,value.toDouble(),SimpleDateFormat.getDateInstance(DateFormat.LONG,locale).parse(date).time)
 
         viewModelScope.launch {
             repository.chargeDao.insert(task!!)

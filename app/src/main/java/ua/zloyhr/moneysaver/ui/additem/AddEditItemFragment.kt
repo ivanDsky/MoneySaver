@@ -15,6 +15,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import ua.zloyhr.moneysaver.R
 import ua.zloyhr.moneysaver.databinding.FragmentAddItemBinding
 import ua.zloyhr.moneysaver.ui.MainActivity
+import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -26,6 +27,7 @@ class AddEditItemFragment : Fragment(R.layout.fragment_add_item) {
     private val currentYear = calendar.get(Calendar.YEAR)
     private val currentMonth = calendar.get(Calendar.MONTH)
     private val currentDayOfMonth = calendar.get(Calendar.DAY_OF_MONTH)
+    private val locale = Locale.ENGLISH
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -45,14 +47,14 @@ class AddEditItemFragment : Fragment(R.layout.fragment_add_item) {
                 etName.editText?.setText(viewModel.task?.name)
                 etValue.editText?.setText(viewModel.task?.value.toString())
                 etDate.editText?.setText(
-                    SimpleDateFormat.getDateInstance().format(viewModel.task?.timeCreated)
+                    SimpleDateFormat.getDateInstance(DateFormat.LONG,locale).format(viewModel.task?.timeCreated)
                 )
             }
             fabSaveItem.setOnClickListener { _ ->
                 if (validateFields()) {
                     viewModel.onSendClick(
                         etName.editText?.text.toString(),
-                        etValue.editText?.text.toString(),
+                        etValue.prefixText.toString() + etValue.editText?.text.toString(),
                         etDate.editText?.text.toString(),
                     )
                     NavHostFragment.findNavController(this@AddEditItemFragment)
@@ -60,18 +62,20 @@ class AddEditItemFragment : Fragment(R.layout.fragment_add_item) {
                 }
             }
 
+            etName.hint = if(isPositive) "Enter profit title" else "Enter expense title"
             etValue.prefixText = if (isPositive) "+" else "-"
             etValue.hint = if (isPositive) "+500.00$" else "-500.00$"
-            etDate.hint = SimpleDateFormat.getDateInstance().format(calendar.timeInMillis)
+            etDate.hint = SimpleDateFormat.getDateInstance(DateFormat.LONG,locale).format(calendar.timeInMillis)
+
 
             val dialog = DatePickerDialog(requireContext(), { _, year, month, dayOfMonth ->
                 calendar.set(year, month, dayOfMonth)
                 etDate.editText?.setText(
-                    SimpleDateFormat.getDateInstance().format(calendar.timeInMillis)
+                    SimpleDateFormat.getDateInstance(DateFormat.LONG, locale).format(calendar.timeInMillis)
                 )
             }, currentYear, currentMonth, currentDayOfMonth)
 
-            etDate.setOnClickListener {
+            etDateField.setOnClickListener {
                 dialog.show()
                 val manager =
                     context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager

@@ -1,7 +1,9 @@
 package ua.zloyhr.moneysaver.data.db
 
+import android.app.Application
 import android.content.Context
 import androidx.room.Room
+import androidx.room.RoomDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -18,6 +20,9 @@ object ChargeModule {
 
     @Provides
     @Singleton
-    fun provideChargeDatabase(@ApplicationContext appContext : Context) : ChargeDatabase =
-        Room.databaseBuilder(appContext,ChargeDatabase::class.java,"DatabaseReader").build()
+    fun provideChargeDatabase(app: Application,callback: ChargeDatabase.Callback) : ChargeDatabase =
+        Room.databaseBuilder(app,ChargeDatabase::class.java,"DatabaseReader")
+            .fallbackToDestructiveMigration()
+            .addCallback(callback)
+            .build()
 }

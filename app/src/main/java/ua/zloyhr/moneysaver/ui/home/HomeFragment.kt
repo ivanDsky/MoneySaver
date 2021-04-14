@@ -3,11 +3,15 @@ package ua.zloyhr.moneysaver.ui.home
 import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.Color
+import android.graphics.Typeface
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import android.view.*
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.Button
+import android.widget.TextView
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.SearchView.OnQueryTextListener
 import androidx.fragment.app.Fragment
@@ -159,6 +163,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         val positiveItem = menu.findItem(R.id.miShowPositive)
         val negativeItem = menu.findItem(R.id.miShowNegative)
         val resetItem = menu.findItem(R.id.miResetFilters)
+        
 
         positiveItem.setOnMenuItemClickListener {
             viewModel.onShowFilterClick(ShowQuery.POSITIVE)

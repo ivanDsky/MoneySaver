@@ -7,15 +7,17 @@ import kotlin.math.abs
 
 data class TimeSample(val timePeriod: TimePeriod, val startTime: Long, var value: Double){
     val endTime = timePeriod.getTime(startTime) + startTime
+    private val locale = Locale.ENGLISH
+
     val periodName:String
         get() {
             val ret = when(timePeriod){
-                TimePeriod.DAY -> SimpleDateFormat("dd MMM", Locale.ROOT).format(startTime)
+                TimePeriod.DAY -> SimpleDateFormat("dd MMM", locale).format(startTime)
                 TimePeriod.WEEK ->
-                    SimpleDateFormat("dd MMM", Locale.ROOT).format(startTime) + " - " +
-                            SimpleDateFormat("dd MMM", Locale.ROOT).format(endTime - 1)
-                TimePeriod.MONTH -> SimpleDateFormat("MMMM",Locale.ROOT).format(startTime)
-                TimePeriod.YEAR -> SimpleDateFormat("yyyy",Locale.ROOT).format(startTime)
+                    SimpleDateFormat("dd MMM", locale).format(startTime) + " - " +
+                            SimpleDateFormat("dd MMM", locale).format(endTime - 1)
+                TimePeriod.MONTH -> SimpleDateFormat("MMMM",locale).format(startTime)
+                TimePeriod.YEAR -> SimpleDateFormat("yyyy",locale).format(startTime)
             }
             return ret.toString()
         }
